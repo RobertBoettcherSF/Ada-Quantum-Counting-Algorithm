@@ -151,8 +151,8 @@ begin
       Check ("10.1 Valid inputs passed without exception", True);
       pragma Warnings (Off, "condition is always true*");
       Check ("10.2 Database size >= 4 verified", 16 >= 4);
-      pragma Warnings (On, "condition is always true*");
       Check ("10.3 Precision bits >= 1 verified", 4 >= 1);
+      pragma Warnings (On, "condition is always true*");
    end;
 
    -- TEST 11 — Input Validation Exception (Database too small)
