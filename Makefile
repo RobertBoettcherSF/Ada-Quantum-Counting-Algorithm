@@ -8,12 +8,12 @@ BIN_DIR := bin
 all: $(BIN_DIR)/tests
 
 $(BIN_DIR)/tests: *.ads *.adb *.gpr
-	mkdir -p $(OBJ_DIR)$(BIN_DIR)
-	$(GNAT)$(FLAGS) -Pquantum_counting.gpr
+	mkdir -p obj bin
+	gnatmake -gnatwa -gnat2022 -Pquantum_counting.gpr
 
 test: all
 	@echo "Running tests..."
-	@$(BIN_DIR)/tests
+	@bin/tests
 
 clean:
-	rm -rf $(OBJ_DIR)$(BIN_DIR)
+	rm -rf obj bin
