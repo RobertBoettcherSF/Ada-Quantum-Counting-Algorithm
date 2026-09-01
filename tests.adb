@@ -1,4 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Numerics;
 with Quantum_Counting; use Quantum_Counting;
 
 procedure Tests is
@@ -27,7 +28,7 @@ begin
       Res : constant Solution_Count := Estimate_Solutions (N, T, K);
    begin
       Check ("1.1 Estimated count is zero", Res = 0);
-      Check ("1.2 Result does not exceed N", Res <= N);
+      Check ("1.2 Result does not exceed N", Res <= Solution_Count (N));
       Check ("1.3 Zero solutions exact match", Res = K);
    end;
 
@@ -39,7 +40,7 @@ begin
       K   : constant Solution_Count := 16;
       Res : constant Solution_Count := Estimate_Solutions (N, T, K);
    begin
-      Check ("2.1 Estimated count equals N", Res = N);
+      Check ("2.1 Estimated count equals N", Res = Solution_Count (N));
       Check ("2.2 Max solutions verified", Res = 16);
       Check ("2.3 Non-negative outcome", Res >= 0);
    end;
@@ -53,7 +54,7 @@ begin
       Res : constant Solution_Count := Estimate_Solutions (N, T, K);
    begin
       Check ("3.1 Estimation is within reasonable delta", abs (Integer (Res) - Integer (K)) <= 4);
-      Check ("3.2 Result bounded by N", Res <= N);
+      Check ("3.2 Result bounded by N", Res <= Solution_Count (N));
       Check ("3.3 Result non-zero", Res > 0);
    end;
 
@@ -114,9 +115,9 @@ begin
    -- TEST 8 — Compute Theta Angle for Minimum Solutions
    Put_Line ("TEST 8 — Compute Theta Minimum Solutions");
    declare
-      N     : constant Database_Capacity := 100;
-      K     : constant Solution_Count := 1;
-      Theta : constant Phase_Radians := Compute_Theta (N, K);
+     N     : constant Database_Capacity := 100;
+     K     : constant Solution_Count := 1;
+     Theta : constant Phase_Radians := Compute_Theta (N, K);
    begin
       Check ("8.1 Theta non-negative", Theta >= 0.0);
       Check ("8.2 Theta within Pi bound", Theta <= Ada.Numerics.Pi);
@@ -184,7 +185,7 @@ begin
       K   : constant Solution_Count := 256;
       Res : constant Solution_Count := Estimate_Solutions (N, T, K);
    begin
-      Check ("13.1 Large database estimation works", Res <= N);
+      Check ("13.1 Large database estimation works", Res <= Solution_Count (N));
       Check ("13.2 Estimation reasonably close to 256", abs (Integer (Res) - Integer (K)) <= 15);
       Check ("13.3 High precision completed cleanly", True);
    end;
