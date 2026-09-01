@@ -10,9 +10,12 @@ package body Quantum_Counting is
      (N      : Database_Capacity;
       T_Bits : Precision_Bits) is
    begin
+      pragma Warnings (Off, "condition can only be");
       if N < 4 or T_Bits < 1 then
+         pragma Warnings (On, "condition can only be");
          raise Invalid_Parameters with "Database capacity must be >= 4 and precision bits >= 1.";
       end if;
+      pragma Warnings (On, "condition can only be");
    end Validate_Inputs;
 
    ------------------------------------------------------------------
@@ -27,9 +30,9 @@ package body Quantum_Counting is
       Ratio   : constant Float := Sqrt (Float_K / Float_N);
    begin
       if Ratio > 1.0 then
-         return Ada.Numerics.Pi;
+         return Phase_Radians (Ada.Numerics.Pi);
       else
-         return 2.0 * Arcsin (Ratio);
+         return Phase_Radians (2.0 * Arcsin (Ratio));
       end if;
    end Compute_Theta;
 
@@ -43,7 +46,7 @@ package body Quantum_Counting is
    is
       Theta   : Phase_Radians;
       M_Steps : Float;
-      Est_Th  : Float;
+      Est_Th  : Phase_Radians;
       Est_K   : Float;
       Float_N : constant Float := Float (N);
    begin
@@ -52,23 +55,23 @@ package body Quantum_Counting is
       if Actual_K = 0 then
          return 0;
       elsif Solution_Count (N) = Actual_K then
-         return N;
+         return Solution_Count (N);
       end if;
 
       Theta := Compute_Theta (N, Actual_K);
       
       -- Simulate Quantum Phase Estimation measurement output m
       -- m / 2^t is approximately theta / (2 * Pi)
-      M_Steps := Float'Rounding ((Theta / (2.0 * Ada.Numerics.Pi)) * Float (2**Integer (T_Bits)));
-      Est_Th  := (M_Steps / Float (2**Integer (T_Bits))) * (2.0 * Ada.Numerics.Pi);
+      M_Steps := Float'Rounding ((Float (Theta) / (2.0 * Ada.Numerics.Pi)) * Float (2**Integer (T_Bits)));
+      Est_Th  := Phase_Radians ((M_Steps / Float (2**Integer (T_Bits))) * (2.0 * Ada.Numerics.Pi));
       
       -- k = N * sin^2(theta / 2)
-      Est_K   := Float_N * (Sin (Est_Th / 2.0)**2);
+      Est_K   := Float_N * (Sin (Float (Est_Th) / 2.0)**2);
 
       if Est_K < 0.0 then
          return 0;
       elsif Est_K > Float_N then
-         return N;
+         return Solution_Count (N);
       else
          return Solution_Count (Float'Rounding (Est_K));
       end if;
