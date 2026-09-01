@@ -42,7 +42,9 @@ begin
    begin
       Check ("2.1 Estimated count equals N", Res = Solution_Count (N));
       Check ("2.2 Max solutions verified", Res = 16);
+      pragma Warnings (Off, "condition is always true");
       Check ("2.3 Non-negative outcome", Res >= 0);
+      pragma Warnings (On, "condition is always true");
    end;
 
    -- TEST 3 — Standard Estimation with Moderate Solutions
@@ -68,7 +70,9 @@ begin
    begin
       Check ("4.1 Existence status evaluated", St = No_Solutions or St = Undetermined);
       Check ("4.2 Status is not falsely positive", St /= Exists_Solutions);
+      pragma Warnings (Off, "condition is always true");
       Check ("4.3 N and T respected", N >= 4 and T >= 1);
+      pragma Warnings (On, "condition is always true");
    end;
 
    -- TEST 5 — Quantum Existence Check with Solutions Present
@@ -141,7 +145,9 @@ begin
    begin
       Validate_Inputs (16, 4);
       Check ("10.1 Valid inputs passed without exception", True);
+      pragma Warnings (Off, "condition is always true");
       Check ("10.2 Database size >= 4 verified", 16 >= 4);
+      pragma Warnings (On, "condition is always true");
       Check ("10.3 Precision bits >= 1 verified", 4 >= 1);
    end;
 
