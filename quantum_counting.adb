@@ -10,12 +10,11 @@ package body Quantum_Counting is
      (N      : Database_Capacity;
       T_Bits : Precision_Bits) is
    begin
-      pragma Warnings (Off, "condition can only be");
+      pragma Warnings (Off, "condition can only be*");
       if N < 4 or T_Bits < 1 then
-         pragma Warnings (On, "condition can only be");
          raise Invalid_Parameters with "Database capacity must be >= 4 and precision bits >= 1.";
       end if;
-      pragma Warnings (On, "condition can only be");
+      pragma Warnings (On, "condition can only be*");
    end Validate_Inputs;
 
    ------------------------------------------------------------------
