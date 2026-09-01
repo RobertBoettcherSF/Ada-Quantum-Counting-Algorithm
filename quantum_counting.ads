@@ -9,7 +9,7 @@ with Ada.Numerics;
 package Quantum_Counting is
 
    -- Domain-specific strong types
-   type Database_Capacity is range 4 .. 2**30;
+   type Database_Capacity is range 1 .. 2**30;
    type Precision_Bits is range 1 .. 30;
    type Solution_Count is range 0 .. 2**30;
    type Phase_Radians is digits 15 range 0.0 .. 2.0 * Ada.Numerics.Pi;
