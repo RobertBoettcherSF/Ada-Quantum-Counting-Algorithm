@@ -28,9 +28,9 @@ begin
       Res : constant Solution_Count := Estimate_Solutions (N, T, K);
    begin
       Check ("1.1 Estimated count is zero", Res = 0);
-      pragma Warnings (Off, "condition can only be*");
+      pragma Warnings (Off);
       Check ("1.2 Result does not exceed N", Res <= Solution_Count (N));
-      pragma Warnings (On, "condition can only be*");
+      pragma Warnings (On);
       Check ("1.3 Zero solutions exact match", Res = K);
    end;
 
@@ -44,9 +44,9 @@ begin
    begin
       Check ("2.1 Estimated count equals N", Res = Solution_Count (N));
       Check ("2.2 Max solutions verified", Res = 16);
-      pragma Warnings (Off, "condition is always true*");
+      pragma Warnings (Off);
       Check ("2.3 Non-negative outcome", Res >= 0);
-      pragma Warnings (On, "condition is always true*");
+      pragma Warnings (On);
    end;
 
    -- TEST 3 — Standard Estimation with Moderate Solutions
@@ -58,9 +58,9 @@ begin
       Res : constant Solution_Count := Estimate_Solutions (N, T, K);
    begin
       Check ("3.1 Estimation is within reasonable delta", abs (Integer (Res) - Integer (K)) <= 4);
-      pragma Warnings (Off, "condition can only be*");
+      pragma Warnings (Off);
       Check ("3.2 Result bounded by N", Res <= Solution_Count (N));
-      pragma Warnings (On, "condition can only be*");
+      pragma Warnings (On);
       Check ("3.3 Result non-zero", Res > 0);
    end;
 
@@ -74,9 +74,9 @@ begin
    begin
       Check ("4.1 Existence status evaluated", St = No_Solutions or St = Undetermined);
       Check ("4.2 Status is not falsely positive", St /= Exists_Solutions);
-      pragma Warnings (Off, "condition is always true*");
+      pragma Warnings (Off);
       Check ("4.3 N and T respected", N >= 4 and T >= 1);
-      pragma Warnings (On, "condition is always true*");
+      pragma Warnings (On);
    end;
 
    -- TEST 5 — Quantum Existence Check with Solutions Present
@@ -149,10 +149,10 @@ begin
    begin
       Validate_Inputs (16, 4);
       Check ("10.1 Valid inputs passed without exception", True);
-      pragma Warnings (Off, "condition is always true*");
+      pragma Warnings (Off);
       Check ("10.2 Database size >= 4 verified", 16 >= 4);
       Check ("10.3 Precision bits >= 1 verified", 4 >= 1);
-      pragma Warnings (On, "condition is always true*");
+      pragma Warnings (On);
    end;
 
    -- TEST 11 — Input Validation Exception (Database too small)
@@ -195,9 +195,9 @@ begin
       K   : constant Solution_Count := 256;
       Res : constant Solution_Count := Estimate_Solutions (N, T, K);
    begin
-      pragma Warnings (Off, "condition can only be*");
+      pragma Warnings (Off);
       Check ("13.1 Large database estimation works", Res <= Solution_Count (N));
-      pragma Warnings (On, "condition can only be*");
+      pragma Warnings (On);
       Check ("13.2 Estimation reasonably close to 256", abs (Integer (Res) - Integer (K)) <= 15);
       Check ("13.3 High precision completed cleanly", True);
    end;
